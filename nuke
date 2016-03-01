@@ -1,0 +1,62 @@
+#!/bin/bash
+#annihilate your workspace junk
+
+VICTIMFILE="nukethis.txt"
+
+if [ "$1" == "-r" ]
+    then
+        > nukethis.txt
+        echo "targets [nukethis.txt] cleared"
+fi
+if [ "$1" == "-n" ]
+    then
+        if [ "$2" != "" ]
+            then
+                echo "$2" >> nukethis.txt
+                echo "type $2 added"
+        fi
+        if [ "$2" == "" ]
+            then
+                echo "failed! next time input something (nuke -n [string value])"
+        fi
+fi
+if [ "$1" != "-n" ] && [ "$1" != "-r" ]
+    then
+        #confirm they want to nuke the stuff
+        echo -p "are you sure about this? (y/n)"
+        read confirmwipe
+        
+        #check confirmation
+        if [ "$confirmwipe" == "y"]
+            then
+                #continue with the wipe
+                #nuke the stuff
+                #read the file line by line
+                while read line; do
+                    VICTIMS+="$line"
+                    VICTIMS+="~!#~"
+                    
+                    extension="."
+                    
+                    if [[ "." ~= "$line" ]]; then
+                        rm $line
+                    fi
+                    
+                done < $VICTIMFILE
+                echo "BOOM!"
+        fi
+                
+        if [ "$confirmwipe" == "n"]
+            then
+                #don't go through with it
+                echo "detonation cancelled"
+        fi
+                
+        if [ "$confirmwipe" != "y" ] && [ "$confirmwipe" != "n" ]
+            then
+                #not valid input
+                echo "failed! next time, input either a [y] or an [n]"
+        fi
+        
+        
+fi
