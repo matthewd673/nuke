@@ -1,12 +1,13 @@
 #!/bin/bash
 #annihilate your workspace junk
+#github.com/matthewd673/nuke-em
 
 VICTIMFILE="nukethis.txt"
 
 if [ "$1" == "-r" ]
     then
         > nukethis.txt
-        echo "targets [nukethis.txt] cleared"
+        echo "targets (nukethis.txt) cleared"
 fi
 if [ "$1" == "-n" ]
     then
@@ -23,30 +24,45 @@ fi
 if [ "$1" != "-n" ] && [ "$1" != "-r" ]
     then
         #confirm they want to nuke the stuff
-        echo -p "are you sure about this? (y/n)"
+        
+        entryct=0
+        
+        while read line; do
+                    
+            for entry in "$PWD"/*
+            do
+                if [[ "$entry" == *"$line"* ]]
+                    then
+                        let "entryct += 1"
+                fi
+            done
+                    
+        done < $VICTIMFILE
+        
+        echo -e "continue with wipe ($entryct files)? (y/n)"
         read confirmwipe
         
         #check confirmation
-        if [ "$confirmwipe" == "y"]
+        if [ "$confirmwipe" == "y" ]
             then
                 #continue with the wipe
-                #nuke the stuff
                 #read the file line by line
+                #check for matching files
                 while read line; do
-                    VICTIMS+="$line"
-                    VICTIMS+="~!#~"
                     
-                    extension="."
-                    
-                    if [[ "." ~= "$line" ]]; then
-                        rm $line
-                    fi
-                    
+                    for entry in "$PWD"/*
+                    do
+                        if [[ "$entry" == *"$line"* ]]
+                            then
+                                rm $entry
+                        fi
+                    done
+                        
                 done < $VICTIMFILE
-                echo "BOOM!"
+                echo "BOOM! ($entryct files deleted)"
         fi
                 
-        if [ "$confirmwipe" == "n"]
+        if [ "$confirmwipe" == "n" ]
             then
                 #don't go through with it
                 echo "detonation cancelled"
