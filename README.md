@@ -1,4 +1,4 @@
-# nuke-em
+# nuke
 annihilate your workspace junk with a simple command
 
 ##usage
