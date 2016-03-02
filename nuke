@@ -1,6 +1,5 @@
 #!/bin/bash
 #annihilate your workspace junk
-#github.com/matthewd673/nuke-em
 
 VICTIMFILE="nukethis.txt"
 
@@ -39,27 +38,44 @@ if [ "$1" != "-n" ] && [ "$1" != "-r" ]
                     
         done < $VICTIMFILE
         
-        echo -e "continue with wipe ($entryct files)? (y/n)"
+        if [[ "$1" != "" ]]
+            then
+                echo -e "continue with specific wipe (files containing $1)? (y/n)"
+        else
+            echo -e "continue with wipe ($entryct files)? (y/n)"
+        fi
         read confirmwipe
         
         #check confirmation
         if [ "$confirmwipe" == "y" ]
             then
                 #continue with the wipe
-                #read the file line by line
-                #check for matching files
-                while read line; do
-                    
-                    for entry in "$PWD"/*
-                    do
-                        if [[ "$entry" == *"$line"* ]]
+                
+                if [[ "$1" != "" ]]
+                    then
+                        if [[ "$entry" == *"$1"* ]]
                             then
                                 rm $entry
+                                echo "BOOM! (files containing $1 were deleted)"
                         fi
-                    done
+                else
+                    #read the file line by line
+                    #check for matching files
+                    while read line; do
                         
-                done < $VICTIMFILE
-                echo "BOOM! ($entryct files deleted)"
+                        for entry in "$PWD"/*
+                        do
+                            if [[ "$entry" == *"$line"* ]]
+                                then
+                                    rm $entry
+                                    echo "BOOM! ($entryct files deleted)"
+                            fi
+                        done
+                            
+                    done < $VICTIMFILE
+                    
+                fi
+                
         fi
                 
         if [ "$confirmwipe" == "n" ]
