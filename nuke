@@ -30,7 +30,7 @@ if [ "$1" != "-n" ] && [ "$1" != "-r" ]
                     
             for entry in "$PWD"/*
             do
-                if [[ "$entry" == *"$line"* ]]
+                if [[ "$entry" == *"$line"* ]] && [[ "$entry" != "nukethis.txt" ]] && [[ "$entry" != "nuke" }}
                     then
                         let "entryct += 1"
                 fi
@@ -65,7 +65,7 @@ if [ "$1" != "-n" ] && [ "$1" != "-r" ]
                         
                         for entry in "$PWD"/*
                         do
-                            if [[ "$entry" == *"$line"* ]]
+                            if [[ "$entry" == *"$line"* ]] && [[ "$entry" != "nukethis.txt" ]] && [[ "$entry" != "nuke" ]]
                                 then
                                     rm $entry
                                     echo "BOOM! ($entryct files deleted)"
@@ -87,7 +87,7 @@ if [ "$1" != "-n" ] && [ "$1" != "-r" ]
         if [ "$confirmwipe" != "y" ] && [ "$confirmwipe" != "n" ]
             then
                 #not valid input
-                echo "failed! next time, input either a [y] or an [n]"
+                echo "failed! (next time, use y or n)"
         fi
         
         
