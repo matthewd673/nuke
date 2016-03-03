@@ -30,7 +30,7 @@ if [ "$1" != "-n" ] && [ "$1" != "-r" ]
                     
             for entry in "$PWD"/*
             do
-                if [[ "$entry" == *"$line"* ]] && [[ "$entry" != "nukethis.txt" ]] && [[ "$entry" != "nuke" }}
+                if [[ "$entry" == *"$line"* ]] && [[ "$entry" != "nukethis.txt" ]] && [[ "$entry" != "nuke" ]]
                     then
                         let "entryct += 1"
                 fi
