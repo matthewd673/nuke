@@ -1,7 +1,8 @@
 # nuke
 annihilate your workspace junk with a simple command
 
-##usage
+## usage
+
 | command | result |
 | --- | --- |
 | `nuke` | nuke your workspace |
